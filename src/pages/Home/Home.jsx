@@ -6,7 +6,7 @@ function Home() {
     return (
         <div className="App">
             <Navbar />
-            <div className="container grid grid-cols-3 gap-4 w-[90%] mt-[50px] mx-auto">
+            <div className="container grid lg:grid-cols-3 md:grid-cols-1 gap-4 w-[90%] mt-[50px] mx-auto">
                 {Array(12).fill(1).map((el, i) =>
                     <CardHomePage key={i} />
                 )}
