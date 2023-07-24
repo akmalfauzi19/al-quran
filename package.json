@@ -40,6 +40,5 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.3.3"
-  },
-  "proxy": "https://api.quran.gading.dev/"
+  }
 }
