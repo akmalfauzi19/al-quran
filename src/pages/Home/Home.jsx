@@ -7,6 +7,8 @@ function Home() {
 
     const { data, loading, error } = useFetch('/surah');
     const surah = data.data;
+
+    console.log(surah);
     return (
         <div className="App">
             <Navbar />
