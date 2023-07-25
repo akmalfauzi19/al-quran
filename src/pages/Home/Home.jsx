@@ -4,9 +4,8 @@ import CardHomePage from '../../component/CardHomePage'
 import useFetch from '../../hooks/useFetch'
 
 function Home() {
-
-    const { data, loading, error } = useFetch('https://api.quran.gading.dev/surah');
-    const surah = data.data;
+    const { data } = useFetch('https://equran.id/api/v2/surat');
+    const surah = data;
 
     return (
         <div className="App">
@@ -15,19 +14,15 @@ function Home() {
 
                 {surah?.map((item) => (
                     <CardHomePage
-                        key={item.number}
-                        number={item.number}
-                        name={item.name.transliteration.id}
-                        ayat={item.name.short}
-                        type={item.revelation.id}
-                        total={item.numberOfVerses}
+                        key={item.nomor}
+                        number={item.nomor}
+                        name={item.namaLatin}
+                        ayat={item.nama}
+                        type={item.tempatTurun}
+                        total={item.jumlahAyat}
 
                     />
                 ))}
-
-                {/* {Array(12).fill(1).map((el, i) =>
-                    <CardHomePage key={i} />
-                )} */}
             </div>
         </div>
     )

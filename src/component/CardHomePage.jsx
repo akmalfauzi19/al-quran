@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom"
 
 function CardHomePage({ number, name, ayat, type, total }) {
+
     return (
         <>
-            <Link to={"/surah/1"}>
+            <Link to={`/surah/` + number}>
                 <div className="w-full rounded-3xl p-px bg-gradient-to-b from-blue-300 to-pink-300 dark:from-blue-800 dark:to-purple-800">
                     <div className="flex rounded-[calc(1.5rem-1px)] p-5 bg-white dark:bg-gray-900 h-28">
                         <div className="flex-none align-top justify-center w-10">
