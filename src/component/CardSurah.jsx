@@ -29,11 +29,11 @@ function CardSurah({ item }) {
     };
 
     return (
-        <div className="w-full rounded-3xl p-px bg-gradient-to-b from-blue-300 to-pink-300 dark:from-blue-800 dark:to-purple-800">
-            <div className="rounded-[calc(1.5rem-1px)] p-5 bg-white dark:bg-gray-900">
+        <div className="w-full rounded-3xl p-px bg-gradient-to-b from-blue-800 to-purple-800">
+            <div className="rounded-[calc(1.5rem-1px)] p-5 bg-gray-900">
                 <div className='flex'>
                     <h4 className='text-white w-auto'>{item.nomorAyat}.</h4>
-                    <PlayButton sound={item.audio["01"]} />
+                    <PlayButton sound={item.audio["03"]} />
                 </div>
                 <p className='font-arab text-right text-white text-5xl py-5'>{item.teksArab}</p>
                 <p className='text-white mt-5 md:mt-10 pb-1 text-justify'>{item.teksLatin}</p>
