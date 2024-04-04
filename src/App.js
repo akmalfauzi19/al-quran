@@ -5,13 +5,15 @@ import Doa from "./pages/Doa/Doa";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path="/surah/:id" element={<Detail />} />
-        <Route path="/doa" element={<Doa />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="App min-h-screen">
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path="/surah/:id" element={<Detail />} />
+          <Route path="/doa" element={<Doa />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

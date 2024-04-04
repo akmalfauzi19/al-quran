@@ -10,15 +10,40 @@ const Doa = () => {
     const { data: defaultDoa, loading } = useFetch('https://open-api.my.id/api/doa/1');
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [isOpenSearch, setIsOpenSearch] = useState(false);
+
+    const [isMobile, setIsMobile] = useState(false);
+
 
     useEffect(() => {
         const results = judul.filter(item => item.judul.toLowerCase().includes(searchTerm.toLowerCase()));
         setSearchResults(results);
     }, [searchTerm, judul])
 
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const handleGetDoa = async (id) => {
         const res = await axios.get(`https://open-api.my.id/api/doa/${id}`);
         setDoa(res.data);
+
+        if (isMobile) {
+            handleBlurSearch()
+        }
+    }
+
+    const handleModalSearch = () => {
+        setIsOpenSearch(!isOpenSearch)
+    }
+
+    const handleBlurSearch = () => {
+        setIsOpenSearch(!isOpenSearch)
     }
 
 
@@ -43,9 +68,8 @@ const Doa = () => {
     return (
         <>
             <Navbar />
-            <div className='flex p-4 gap-4'>
-
-                <div className='flex-none w-[20rem] bg-gray-900 border border-sky-500 rounded-lg max-h-[calc(100vh-11rem)] overflow-y-auto scrollbar scrollbar-w-1 scrollbar-thumb-neutral-600 scrollbar-thumb-rounded-full'>
+            <div className={`${!isMobile ? 'flex p-4 gap-4 ' : 'grid grid-cols-1'}`}>
+                <div className={`flex-none ${isMobile ? 'hidden' : ''} w-[20rem] bg-gray-900 border border-sky-500 rounded-lg max-h-[calc(100vh-11rem)] overflow-y-auto scrollbar scrollbar-w-1 scrollbar-thumb-neutral-600 scrollbar-thumb-rounded-full`}>
                     <div className="md:block top-0 sticky w-full p-2 bg-gray-900">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -66,7 +90,26 @@ const Doa = () => {
                         )}
                     </div>
                 </div>
-                <div className='flex-1 grid grid-cols-1 gap-3 p-4 bg-gray-900 border border-sky-500 rounded-lg max-h-[calc(100vh-11rem)] overflow-y-auto scrollbar scrollbar-w-1 scrollbar-thumb-neutral-600 scrollbar-thumb-rounded-full'>
+
+                {isMobile && (
+                    <div className='w-full p-4 mx-auto'>
+                        <input type="text" id="search" onFocus={handleModalSearch} onChange={e => setSearchTerm(e.target.value)} className="block w-full p-2 pl-8 text-sm border rounded-lg bg-gray-700 border-gray-600 placeholder-white text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Search..." />
+                        {isOpenSearch && (
+                            <div className='grid grid-cols-1 p-3 gap-2'>
+                                {searchResults.length > 0 ? searchResults.map(data => (
+                                    <button key={data.id} onClick={() => handleGetDoa(data.id)} className='bg-neutral-800 p-2 rounded-lg hover:bg-neutral-700 cursor-pointer border-2 border-sky-700 text-left'>
+                                        <p className='text-white text-md'>{data.id}. {data.judul}</p>
+                                    </button>
+                                )) : (
+                                    <p className="text-white text-center">No results found.</p>
+                                )}
+                            </div>
+                        )}
+
+                    </div>
+                )}
+
+                <div className={`flex-1 grid grid-cols-1 gap-3 p-4 ${isMobile ? 'mx-4' : ''} bg-gray-900 border border-sky-500 rounded-lg max-h-[calc(100vh-11rem)] overflow-y-auto scrollbar scrollbar-w-1 scrollbar-thumb-neutral-600 scrollbar-thumb-rounded-full`}>
                     {!loading && (Object.keys(doa).length > 0 ? <ComponentDoa data={doa} /> : <ComponentDoa data={defaultDoa} />)}
                     <div className='flex items-center justify-between p-4 rounded-lg bg-neutral-800 text-neutral-200'>
                         <p className='font-bold'>Bagikan : </p>

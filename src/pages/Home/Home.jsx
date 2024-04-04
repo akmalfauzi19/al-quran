@@ -9,7 +9,6 @@ function Home() {
     const [searchResults, setSearchResults] = useState([]);
 
     const { data } = useFetch('https://equran.id/api/v2/surat');
-    const surah = data;
 
     useEffect(() => {
         const results = data.filter(item => item.namaLatin.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -17,7 +16,7 @@ function Home() {
     }, [searchTerm, data])
 
     return (
-        <div className="App">
+        <>
             <Navbar />
             <div className='grid grid-cols-1'>
                 <div className='w-[90%] mt-[50px] mx-auto relative'>
@@ -40,7 +39,7 @@ function Home() {
                 </div>
             </div>
             <Footer />
-        </div>
+        </>
     )
 }
 

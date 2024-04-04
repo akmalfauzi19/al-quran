@@ -5,6 +5,7 @@ import CardSurah from '../../component/CardSurah';
 import TypeSurah from '../../component/TypeSurah';
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import useFetch from '../../hooks/useFetch'
+import Footer from '../../component/Footer';
 
 
 function Detail() {
@@ -64,6 +65,7 @@ function Detail() {
 
                 </div>
             </div>
+            <Footer />
         </>
     )
 }
